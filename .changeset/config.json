@@ -1,6 +1,9 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@1.6.3/schema.json",
-  "changelog": ["@changesets/changelog-github", { "repo": "natemoo-re/actions-playground" }],
+  "changelog": [
+    "@changesets/changelog-github",
+    { "repo": "natemoo-re/actions-playground" }
+  ],
   "commit": false,
   "linked": [],
   "access": "public",
