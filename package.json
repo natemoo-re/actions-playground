@@ -5,7 +5,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Passed tests!\" && exit 0"
+    "test": "echo \"Passed tests!\" && exit 0",
+    "build": "yarn workspaces run build"
   },
   "workspaces": [
     "packages/*"
@@ -26,6 +27,7 @@
     "yarn": "1.22.17"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.18.1"
+    "@changesets/cli": "^2.18.1",
+    "esbuild": "^0.14.0"
   }
 }

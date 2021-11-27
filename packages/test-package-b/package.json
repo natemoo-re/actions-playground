@@ -1,5 +1,8 @@
 {
     "name": "@natemoo-re/test-package-b",
     "version": "0.0.1",
-    "main": "./index.js"
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "esbuild src/index.ts --bundle --outfile=dist/index.js"
+    }
 }
