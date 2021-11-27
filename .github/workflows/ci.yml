@@ -129,46 +129,46 @@ jobs:
       - name: Test
         run: yarn test
 
-  smoke:
-    name: 'Smoke Test: ${{ matrix.target }}'
-    runs-on: ubuntu-latest
-    if: "!contains(github.event.head_commit.message, '[skip-ci]')"
-    strategy:
-      matrix:
-        target: [docs, www]
-    needs:
-      - build
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+  # smoke:
+  #   name: 'Smoke Test: ${{ matrix.target }}'
+  #   runs-on: ubuntu-latest
+  #   if: "!contains(github.event.head_commit.message, '[skip-ci]')"
+  #   strategy:
+  #     matrix:
+  #       target: [docs, www]
+  #   needs:
+  #     - build
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
 
-      - name: Setup Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16
-          cache: 'yarn'
+  #     - name: Setup Node
+  #       uses: actions/setup-node@v2
+  #       with:
+  #         node-version: 16
+  #         cache: 'yarn'
 
-      - name: Download Build Artifacts
-        uses: actions/download-artifact@v2
+  #     - name: Download Build Artifacts
+  #       uses: actions/download-artifact@v2
 
-      - name: Extract Artifacts
-        run: ./.github/extract-artifacts.sh
+  #     - name: Extract Artifacts
+  #       run: ./.github/extract-artifacts.sh
 
-      - name: Install NPM Dependencies
-        run: yarn install --frozen-lockfile --ignore-engines --registry https://registry.npmjs.org --network-timeout 300000
-        env:
-          CI: true
+  #     - name: Install NPM Dependencies
+  #       run: yarn install --frozen-lockfile --ignore-engines --registry https://registry.npmjs.org --network-timeout 300000
+  #       env:
+  #         CI: true
 
-      - name: Build
-        run: yarn build
-        working-directory: ${{ matrix.target }}
+  #     - name: Build
+  #       run: yarn build
+  #       working-directory: ${{ matrix.target }}
 
   # Changelog can only run _after_ Build and Test.
   # We download all `dist/` artifacts from GitHub to skip the build process.
   changelog:
     name: Changelog PR or Release
     if: ${{ !contains(github.event.head_commit.message, '[skip-ci]') && github.ref_name == 'main' && github.repository_owner == 'withastro' }}
-    needs: [lint, test, smoke]
+    needs: [lint, test]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
