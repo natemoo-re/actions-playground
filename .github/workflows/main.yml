@@ -92,7 +92,7 @@ jobs:
       
       - name: Create Release PR
         id: changesets
-        uses: changesets/action@master
+        uses: changesets/action@v1
         with:
           commit: '[ci] release'
           title: '[ci] release'

@@ -200,7 +200,7 @@ jobs:
       
       - name: Create Release Pull Request or Publish
         id: changesets
-        uses: changesets/action@master
+        uses: changesets/action@v1
         with:
           publish: changeset publish
           commit: '[ci] release'
@@ -217,7 +217,7 @@ jobs:
 
       - name: Publish to GPR
         if: steps.changesets.outputs.published == 'true'
-        uses: changesets/action@master
+        uses: changesets/action@v1
         with:
           publish: changeset publish
         env:
