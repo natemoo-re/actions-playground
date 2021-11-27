@@ -1,0 +1,5 @@
+{
+    "name": "@natemoo-re/test-package-a",
+    "version": "0.0.1",
+    "main": "./index.js"
+}
