@@ -18,7 +18,7 @@ jobs:
     name: Check for Updates
     runs-on: ubuntu-latest
     outputs:
-      run_job: ${{ steps.check_files.outputs.run_job }}
+      is_clean: ${{ steps.check_files.outputs.is_clean }}
     steps:
       - uses: actions/checkout@v2
 
@@ -43,16 +43,16 @@ jobs:
           if [[ $output = '{ "changesets": [], "releases": [] }' ]]
           then
             echo 'No changeset found'
-            echo "::set-output name=run_job::true"
+            echo "::set-output name=is_clean::true"
           else
             echo 'changes found, push to latest skipped'
-            echo "::set-output name=run_job::false"
+            echo "::set-output name=is_clean::false"
           fi
   
   update:
     name: Update the latest branch
     needs: check_for_update
-    if: needs.check_for_update.outputs.run_job == 'true'
+    if: needs.check_for_update.outputs.is_clean == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -64,3 +64,34 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: latest
+
+  changelog:
+    name: Changelog
+    if: needs.check_for_update.outputs.is_clean == 'false'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: 'yarn'
+      
+      - name: Download Build Artifacts
+        uses: actions/download-artifact@v2
+
+      - name: Extract Artifacts
+        run: ./.github/extract-artifacts.sh
+
+      - name: Install NPM Dependencies
+        run: yarn install --prefer-offline --frozen-lockfile --ignore-engines
+        env:
+          CI: true
+      
+      - name: Create Release PR
+        id: changesets
+        uses: changesets/action@master
+        with:
+          commit: '[ci] release'
+          title: '[ci] release'
