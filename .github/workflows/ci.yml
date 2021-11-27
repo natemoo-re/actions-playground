@@ -67,7 +67,6 @@ jobs:
   # We upload all `dist/` artifacts to GitHub, which can be shared by all dependent jobs.
   build:
     name: Build Packages
-    if: "!contains(github.event.head_commit.message, '[skip-ci]')"
     needs: skip
     if: ${{ needs.skip.outputs.should_skip != 'true' && !contains(github.event.head_commit.message, '[skip-ci]') }}
     runs-on: ubuntu-latest
