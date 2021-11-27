@@ -19,6 +19,7 @@ defaults:
 
 jobs:
   skip:
+    name: Skip
     runs-on: ubuntu-latest
     # Map a step output to a job output
     outputs:
