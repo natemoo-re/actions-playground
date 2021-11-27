@@ -67,6 +67,7 @@ jobs:
 
   changelog:
     name: Changelog
+    needs: check_for_update
     if: needs.check_for_update.outputs.is_clean == 'false'
     runs-on: ubuntu-latest
     steps:
