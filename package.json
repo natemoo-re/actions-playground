@@ -27,7 +27,8 @@
     "yarn": "1.22.17"
   },
   "dependencies": {
-    "@changesets/cli": "^2.18.1"
+    "@changesets/cli": "^2.18.1",
+    "@changesets/changelog-github": "^0.4.2"
   },
   "devDependencies": {
     "esbuild": "^0.14.0",
