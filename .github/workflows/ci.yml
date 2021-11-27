@@ -2,14 +2,11 @@ name: CI
 
 on:
   push:
-    branches-ignore:
-      - 'changeset-release/*'
+    branches:
+      - 'main'
   pull_request:
     paths-ignore:
       - '.vscode/**'
-      - 'docs/**'
-      - 'examples/**'
-      - 'www/**'
 
 # Automatically cancel in-progress actions on the same branch
 concurrency:

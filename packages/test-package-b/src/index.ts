@@ -1,1 +1,1 @@
-console.log("Hello test-package-a!");
+console.log("Hello `test-package-b`!");
