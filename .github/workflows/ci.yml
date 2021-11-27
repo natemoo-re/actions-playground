@@ -18,22 +18,11 @@ defaults:
     shell: bash
 
 jobs:
-  skip:
-    name: Skip
-    runs-on: ubuntu-latest
-    # Map a step output to a job output
-    outputs:
-      should_skip: ${{ steps.skip_check.outputs.should_skip }}
-    steps:
-      - id: skip_check
-        uses: fkirc/skip-duplicate-actions@master
-
   # Lint can run in parallel with Build.
   # We also run `yarn install` with the `--prefer-offline` flag to speed things up.
   lint:
     name: Lint
-    needs: skip
-    if: ${{ needs.skip.outputs.should_skip != 'true' && !contains(github.event.head_commit.message, '[skip-ci]') }}
+    if: ${{ !contains(github.event.head_commit.message, '[skip-ci]') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -68,8 +57,7 @@ jobs:
   # We upload all `dist/` artifacts to GitHub, which can be shared by all dependent jobs.
   build:
     name: Build Packages
-    needs: skip
-    if: ${{ needs.skip.outputs.should_skip != 'true' && !contains(github.event.head_commit.message, '[skip-ci]') }}
+    if: ${{ !contains(github.event.head_commit.message, '[skip-ci]') }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

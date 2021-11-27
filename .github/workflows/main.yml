@@ -49,18 +49,4 @@ jobs:
             echo "::set-output name=is_clean::false"
           fi
   
-  update:
-    name: Update the latest branch
-    needs: check_for_update
-    if: needs.check_for_update.outputs.is_clean == 'true'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Push
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: latest
+  
