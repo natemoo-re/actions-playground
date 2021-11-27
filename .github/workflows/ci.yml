@@ -49,10 +49,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          eslint: true
-          eslint_args: --ignore-pattern test --ignore-pattern vendor
-          eslint_dir: packages/astro
-          eslint_extensions: ts
           prettier: true
           auto_fix: true
           git_name: GitHub Action
