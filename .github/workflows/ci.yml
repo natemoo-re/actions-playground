@@ -174,6 +174,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
+          registry-url: 'https://registry.npmjs.org'
           cache: 'yarn'
       
       - name: Download Build Artifacts
@@ -196,7 +197,8 @@ jobs:
           title: '[ci] release'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Setup GPR
         if: steps.changesets.outputs.published == 'true'
@@ -205,12 +207,12 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
 
       - name: Publish to GPR
-        if: steps.changesets.outputs.published == 'true'
         uses: changesets/action@v1
         with:
           publish: yarn changeset publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # - name: Generate Notification
