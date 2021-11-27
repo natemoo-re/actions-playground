@@ -1,5 +1,11 @@
 # @natemoore/test-package-a
 
+## 0.0.4
+
+### Patch Changes
+
+- Bump
+
 ## 0.0.3
 
 ### Patch Changes
