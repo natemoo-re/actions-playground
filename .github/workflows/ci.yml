@@ -203,7 +203,7 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
-          publish: changeset publish
+          publish: yarn changeset publish
           commit: '[ci] release'
           title: '[ci] release'
         env:
@@ -220,7 +220,7 @@ jobs:
         if: steps.changesets.outputs.published == 'true'
         uses: changesets/action@v1
         with:
-          publish: changeset publish
+          publish: yarn changeset publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
