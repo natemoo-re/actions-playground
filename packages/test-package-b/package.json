@@ -2,6 +2,7 @@
   "name": "@natemoore/test-package-b",
   "version": "0.0.2",
   "main": "dist/index.js",
+  "access": "public",
   "scripts": {
     "build": "esbuild src/index.ts --bundle --outfile=dist/index.js"
   }
